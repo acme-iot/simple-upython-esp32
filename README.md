@@ -30,4 +30,10 @@ in rshell copy all files in `src` to the board
 
 then access the repl against the board
 - `repl`
+- `>>>> import start`
+- update src/config.py with an SSID & password to connect to
+- `>>>> start.single()`
 
+### Notes
+
+- ensure `CONFIG_ESP32_WIFI_NVS_ENABLED` is set to `n`
