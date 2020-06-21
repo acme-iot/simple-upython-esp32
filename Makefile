@@ -10,10 +10,12 @@ flash.erase:
 	esptool.py --port $(PORT) erase_flash
 
 setup:
-	. ./scripts/setup.sh
+	sudo easy_install pip
+	sudo pip install pyserial
+	sudo pip3 install rshell
 
 build:
 	. ./scripts/build.sh ${PORT}
 
 repl:
-	. ./scripts/repl.sh ${PORT}
+	rshell -a --buffer-size=30 --port=${PORT}
