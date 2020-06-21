@@ -1,6 +1,9 @@
 PORT := /dev/cu.usbserial-01DFA28F
 BINARY := esp32-idf4-20191220-v1.12.bin
 
+PHONEY.:
+	build
+
 all: flash.write
 
 clean:
@@ -19,4 +22,5 @@ flash.write:
 repl:
 	picocom $(PORT) -b115200
 
-
+build:
+	. ./setup.sh
