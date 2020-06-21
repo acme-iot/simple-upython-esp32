@@ -14,5 +14,6 @@ git clone --depth 1 https://github.com/mozilla-iot/webthing-upy.git
 cd ./webthing-upy
 
 rshell -a --buffer-size=30 --port=$port
+rshell ls /flash
 
 cd ../

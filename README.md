@@ -21,3 +21,5 @@ All that is needed once the serial port is connected is to replace the `PORT` in
 
 usage, refer to https://github.com/dhylands/rshell#sample-session
 
+run `make wt.repl`
+
