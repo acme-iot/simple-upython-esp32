@@ -22,5 +22,14 @@ flash.write:
 repl:
 	picocom $(PORT) -b115200
 
-build:
+wt.setup:
 	. ./setup.sh
+
+wt.build:
+	. ./build.sh ${PORT}
+
+wt.repl:
+	. ./repl.sh ${PORT}
+
+wt.clean:
+	. ./clean.sh
