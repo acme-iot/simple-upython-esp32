@@ -1,5 +1,6 @@
 # These should be edited to reflect your actual SSID and password
 
+# use 2.4GHz band / not 5GHzrepl
 SSID = 'raspi-webgui'
 PASSWORD = 'ChangeMe'
 
