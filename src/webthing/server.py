@@ -51,6 +51,7 @@ class SingleThing:
     def __init__(self, thing):
         """
         Initialize the container.
+
         thing -- the thing to store
         """
         self.thing = thing
@@ -74,6 +75,7 @@ class MultipleThings:
     def __init__(self, things, name):
         """
         Initialize the container.
+
         things -- the things to store
         name -- the mDNS server name
         """
@@ -83,6 +85,7 @@ class MultipleThings:
     def get_thing(self, idx):
         """
         Get the thing at the given index.
+
         idx -- the index
         """
         try:
@@ -111,8 +114,10 @@ class WebThingServer:
                  additional_routes=None):
         """
         Initialize the WebThingServer.
+
         For documentation on the additional route format, see:
         https://github.com/loboris/MicroPython_ESP32_psRAM_LoBo/wiki/microWebSrv
+
         things -- list of Things managed by this server
         port -- port to listen on (defaults to 80)
         hostname -- Optional host name, i.e. mything.com
@@ -267,9 +272,13 @@ class WebThingServer:
                 return thing, thing.find_property(property_name)
         return None, None
 
+    def getHeader(self, headers, key, default=None):
+        standardized = {k.lower(): v for k, v in headers.items()}
+        return standardized.get(key, default)
+
     def validateHost(self, headers):
         """Validate the Host header in the request."""
-        host = headers.get('host', None) or headers.get('Host', None)
+        host = self.getHeader(headers, 'host')
         if host is not None and host.lower() in self.hosts:
             return True
 
@@ -291,17 +300,14 @@ class WebThingServer:
             httpResponse.WriteResponseError(403)
             return
 
+        headers = httpClient.GetRequestHeaders()
         base_href = 'http{}://{}'.format(
             self.ssl_suffix,
-            httpClient.GetRequestHeaders().get('host', None)
-            or httpClient.GetRequestHeaders().get('Host', None)
-            or ''
+            self.getHeader(headers, 'host', '')
         )
         ws_href = 'ws{}://{}'.format(
             self.ssl_suffix,
-            httpClient.GetRequestHeaders().get('host', None)
-            or httpClient.GetRequestHeaders().get('Host', None)
-            or ''
+            self.getHeader(headers, 'host', '')
         )
 
         descriptions = []
@@ -338,17 +344,14 @@ class WebThingServer:
             httpResponse.WriteResponseNotFound()
             return
 
+        headers = httpClient.GetRequestHeaders()
         base_href = 'http{}://{}'.format(
             self.ssl_suffix,
-            httpClient.GetRequestHeaders().get('host', None)
-            or httpClient.GetRequestHeaders().get('Host', None)
-            or ''
+            self.getHeader(headers, 'host', '')
         )
         ws_href = 'ws{}://{}'.format(
             self.ssl_suffix,
-            httpClient.GetRequestHeaders().get('host', None)
-            or httpClient.GetRequestHeaders().get('Host', None)
-            or ''
+            self.getHeader(headers, 'host', '')
         )
 
         description = thing.as_thing_description()
