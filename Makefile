@@ -1,5 +1,5 @@
 PORT := /dev/cu.usbserial-01DFA28F
-
+#PORT := /dev/cu.usbserial-1413401
 
 all: clean setup build repl
 
@@ -19,3 +19,11 @@ build:
 
 repl:
 	rshell -a --buffer-size=30 --port=${PORT}
+
+monitor:
+	cd ./output/MicroPython_ESP32_psRAM_LoBo/MicroPython_BUILD/ \
+	&& ./BUILD.sh monitor
+
+pre.build: flash.erase
+	cd ./output/MicroPython_ESP32_psRAM_LoBo/MicroPython_BUILD/firmware/esp32_ota \
+	&& ../flash.sh -p ${PORT}

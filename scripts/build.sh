@@ -10,11 +10,10 @@ port=$1
 mkdir ./output
 cd ./output
 
-git clone --depth 1 https://github.com/loboris/MicroPython_ESP32_psRAM_LoBo.git
+git clone --depth 1 https://github.com/trentmillar/MicroPython_ESP32_psRAM_LoBo.git
 yes | cp -rf ./../artifacts/sdkconfig ./MicroPython_ESP32_psRAM_LoBo/MicroPython_BUILD/sdkconfig
 cd ./MicroPython_ESP32_psRAM_LoBo/MicroPython_BUILD
 
 ./BUILD.sh erase
 ./BUILD.sh -j4 all
 ./BUILD.sh flash
-
