@@ -2,12 +2,12 @@
 
 from microWebSrv import MicroWebSrv
 import _thread
-import logging
+from ..upy import logging
 import sys
 import network
 
-from errors import PropertyError
-from utils import get_addresses
+from .errors import PropertyError
+from .utils import get_addresses
 
 log = logging.getLogger(__name__)
 
@@ -229,7 +229,7 @@ class WebThingServer:
         self.server = MicroWebSrv(webPath='/flash/www',
                                   routeHandlers=handlers,
                                   port=port)
-        self.server.MaxWebSocketRecvLen = 256
+        self.server.MaxWebSocketRecvLen = 4 * 256
         self.WebSocketThreaded = ws_run_in_thread
         self.server.WebSocketStackSize = 8 * 1024
         self.server.AcceptWebSocketCallback = self._acceptWebSocketCallback
@@ -286,6 +286,8 @@ class WebThingServer:
 
     @print_exc
     def optionsHandler(self, httpClient, httpResponse, routeArgs=None):
+        print('in optionsHandler')
+
         """Handle an OPTIONS request to any path."""
         if not self.validateHost(httpClient.GetRequestHeaders()):
             httpResponse.WriteResponseError(403)
@@ -295,6 +297,8 @@ class WebThingServer:
 
     @print_exc
     def thingsGetHandler(self, httpClient, httpResponse):
+        print('in thingsGetHandler')
+
         """Handle a request to / when the server manages multiple things."""
         if not self.validateHost(httpClient.GetRequestHeaders()):
             httpResponse.WriteResponseError(403)
@@ -334,6 +338,8 @@ class WebThingServer:
 
     @print_exc
     def thingGetHandler(self, httpClient, httpResponse, routeArgs=None):
+        print('in thingGetHandler')
+
         """Handle a GET request for an individual thing."""
         if not self.validateHost(httpClient.GetRequestHeaders()):
             httpResponse.WriteResponseError(403)
@@ -374,6 +380,8 @@ class WebThingServer:
 
     @print_exc
     def propertiesGetHandler(self, httpClient, httpResponse, routeArgs=None):
+        print('in propertiesGetHandler')
+
         """Handle a GET request for a property."""
         thing = self.getThing(routeArgs)
         if thing is None:
@@ -383,6 +391,8 @@ class WebThingServer:
 
     @print_exc
     def propertyGetHandler(self, httpClient, httpResponse, routeArgs=None):
+        print('in propertyGetHandler')
+
         """Handle a GET request for a property."""
         if not self.validateHost(httpClient.GetRequestHeaders()):
             httpResponse.WriteResponseError(403)
@@ -399,6 +409,8 @@ class WebThingServer:
 
     @print_exc
     def propertyPutHandler(self, httpClient, httpResponse, routeArgs=None):
+        print('in propertyPutHandler')
+
         """Handle a PUT request for a property."""
         if not self.validateHost(httpClient.GetRequestHeaders()):
             httpResponse.WriteResponseError(403)
@@ -426,6 +438,8 @@ class WebThingServer:
 
     @print_exc
     def _acceptWebSocketCallback(self, webSocket, httpClient):
+        print('in _acceptWebSocketCallback')
+
         reqPath = httpClient.GetRequestPath()
         if WS_messages:
             print('WS ACCEPT reqPath =', reqPath)
@@ -447,16 +461,19 @@ class WebThingServer:
 
     @print_exc
     def _recvTextCallback(self, webSocket, msg):
+        print('in _recvTextCallback')
         if WS_messages:
             print('WS RECV TEXT : %s' % msg)
 
     @print_exc
     def _recvBinaryCallback(self, webSocket, data):
+        print('in _recvBinaryCallback')
         if WS_messages:
             print('WS RECV DATA : %s' % data)
 
     @print_exc
     def _closedCallback(self, webSocket):
+        print('in _closedCallback')
         if WS_messages:
             if ws_run_in_thread or srv_run_in_thread:
                 _thread.list()

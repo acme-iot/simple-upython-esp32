@@ -1,5 +1,5 @@
 import sys
-import logging
+from .upy import logging
 import connect
 
 logging.basicConfig(logging.DEBUG)
@@ -22,7 +22,7 @@ def rgb():
 
 def single():
     print('importing single_thing...')
-    import single_thing
+    from example import single_thing
     print('Starting single_thing server...')
     single_thing.run_server()
 

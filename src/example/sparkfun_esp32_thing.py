@@ -2,7 +2,7 @@ from property import Property
 from thing import Thing
 from value import Value
 from server import MultipleThings, WebThingServer
-import logging
+from ..upy import logging
 import time
 import machine
 
