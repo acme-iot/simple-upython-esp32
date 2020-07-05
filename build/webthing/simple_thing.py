@@ -1,11 +1,12 @@
-from webthing.action import Action
-from webthing.event import Event
-from webthing.property import Property
-from webthing.thing import Thing
-from webthing.value import Value
-from webthing.server import SingleThing, WebThingServer
-from ..upy import logging, uuid
+from action import Action
+from event import Event
+from property import Property
+from thing import Thing
+from value import Value
+from server import SingleThing, WebThingServer
+import logging
 import time
+import uuid
 
 log = logging.getLogger(__name__)
 
@@ -29,8 +30,8 @@ class FadeAction(Action):
 
 def make_thing():
     thing = Thing(
-        'urn:dev:ops:my-lamp-1234',
-        'My Lamp',
+        'urn:dev:ops:simple-lamp-1234',
+        'Simple Lamp',
         ['OnOffSwitch', 'Light'],
         'A web connected lamp'
     )
@@ -45,6 +46,7 @@ def make_thing():
                      'type': 'boolean',
                      'description': 'Whether the lamp is turned on',
                  }))
+    """
     thing.add_property(
         Property(thing,
                  'brightness',
@@ -58,7 +60,8 @@ def make_thing():
                      'maximum': 100,
                      'unit': 'percent',
                  }))
-
+    """
+    """
     thing.add_available_action(
         'fade',
         {
@@ -86,7 +89,7 @@ def make_thing():
             },
         },
         FadeAction)
-
+    """
     thing.add_available_event(
         'overheated',
         {
