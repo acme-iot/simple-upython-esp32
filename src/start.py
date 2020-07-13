@@ -12,7 +12,6 @@ sys.path.append('/flash/webthing')
 connect.connect_to_ap()
 connect.start_ntp()
 
-
 def rgb():
     print('importing esp32_wrover_kit_rgb...')
     import esp32_wrover_kit_rgb

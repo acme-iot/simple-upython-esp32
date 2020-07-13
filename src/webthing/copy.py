@@ -48,7 +48,8 @@ __getstate__() and __setstate__().  See the documentation for module
 "pickle" for information on these methods.
 """
 
-from . import types
+import types
+
 
 # import weakref
 # from copyreg import dispatch_table

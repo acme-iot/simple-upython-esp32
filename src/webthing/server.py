@@ -2,12 +2,12 @@
 
 from microWebSrv import MicroWebSrv
 import _thread
-from ..upy import logging
+import logging
 import sys
 import network
 
-from .errors import PropertyError
-from .utils import get_addresses
+from errors import PropertyError
+from utils import get_addresses
 
 log = logging.getLogger(__name__)
 
@@ -20,7 +20,7 @@ WS_messages = True
 #   - do NOT run MicroWebSocket in thread
 # =================================================
 # Run microWebServer in thread
-srv_run_in_thread = True
+srv_run_in_thread = False # True
 # Run microWebSocket in thread
 ws_run_in_thread = False
 
@@ -240,7 +240,7 @@ class WebThingServer:
         # running in thread make shure WebServer has enough stack size to
         # handle also the WebSocket requests.
         log.info('Starting Web Server on port {}'.format(self.port))
-        self.server.Start(threaded=srv_run_in_thread, stackSize=12*1024)
+        self.server.Start(threaded=srv_run_in_thread, stackSize=18*1024)
 
         mdns = network.mDNS()
         mdns.start(self.system_hostname, 'MicroPython with mDNS')

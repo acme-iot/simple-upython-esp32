@@ -1,10 +1,11 @@
-from webthing.action import Action
-from webthing.event import Event
-from webthing.property import Property
-from webthing.thing import Thing
-from webthing.value import Value
-from webthing.server import SingleThing, WebThingServer
-from src.webthing import uuid, logging
+from action import Action
+from event import Event
+from property import Property
+from thing import Thing
+from value import Value
+from server import SingleThing, WebThingServer
+import uuid
+import logging
 import time
 
 log = logging.getLogger(__name__)
